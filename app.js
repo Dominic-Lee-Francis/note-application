@@ -4,4 +4,4 @@ const fs = require('fs');
 const path = require('path');
 
 
-noteServices.read();
+noteServices.list();

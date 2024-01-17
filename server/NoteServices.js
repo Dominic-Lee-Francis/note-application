@@ -41,7 +41,7 @@ class NoteServices {
         // creates and returns a new promise. A promise is an object that represents the eventual completion of an asynchronous operation.
         return new Promise((resolve, reject) => {
             // directs the fs module to read the database json file
-            this.fs.readFile('./db.json', 'utf8', (err, data) => {
+            this.fs.readFile('./Database/db.json', 'utf8', (err, data) => {
                 // if an error occurs, the promise is rejected and the error is returned
                 if (err) {
                     reject(err);
@@ -51,9 +51,19 @@ class NoteServices {
                 const parsedData = JSON.parse(data);
                 // the promise is fulfilled and the parsed data is returned
                 resolve(parsedData);
+                console.log(parsedData);
                 console.log("file read successfully");
             });
         });
+    }
+
+
+    /*
+    * List all Notes Function
+    */
+    list() {
+        // returns the note property
+        return this.note;
     }
 }
 
