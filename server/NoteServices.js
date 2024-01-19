@@ -57,13 +57,18 @@ class NoteServices {
         });
     }
 
-
     /*
     * List all Notes Function
     */
     list() {
-        // returns the note property
-        return this.note;
+        // returns a new promise that resolves with the note property
+        return new Promise((resolve, reject) => {
+            if (this.note) {
+                resolve(this.note);
+            } else {
+                reject("Note is not available.");
+            }
+        });
     }
 }
 

@@ -1,3 +1,6 @@
+const NoteServices = require("../server/NoteServices");
+const noteServices = new NoteServices();
+
 test("at first it should list empty notes", () => {
-    expect(NoteServices.list()).toEqual({});
+    return expect(noteServices.list()).resolves.toEqual({});
 });
