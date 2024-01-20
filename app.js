@@ -3,5 +3,7 @@ const noteServices = new NoteServices();
 const fs = require('fs');
 const path = require('path');
 
+const note = new NoteServices(__dirname + "./Database/db.json", fs);
 
-noteServices.list();
+
+noteServices.create({"user": "test", "note": "test note"});
