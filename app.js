@@ -16,7 +16,7 @@ const app = express();
 const { engine } = require('express-handlebars');
 const basicAuth = require('express-basic-auth');
 const NoteRouter = require('./Router/NoteRouter');
-// const NoteServer = require('./server/NoteServer');
+const NoteServer = require('./server/NoteServer');
 const myAuthorizer = require('./authentication/authentication');
 const fs = require("fs");
 const path = require("path");
@@ -32,7 +32,7 @@ app.use(basicAuth({
     realm: 'Note App'
 }));
 
-// const note = new NoteServer(__dirname + "./database/db.json", fs);
+const note = new NoteServer(__dirname + "/database/notes.json", fs);
 
 app.get("/", function (req, res) {
     res.render("home", {

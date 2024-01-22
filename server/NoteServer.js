@@ -3,7 +3,7 @@ class NoteServer {
       this.file = file;
       this.fs = fs;
       this.note = {};
-      this.init();
+      this.init();     
     }
   
     init() {
@@ -21,8 +21,18 @@ class NoteServer {
               reject(err);
             }
             resolve(JSON.parse(data));
-            console.log(data);
           });
+        });
+      }
+
+    list() {
+        return new Promise((resolve, reject) => {
+          if (this.note) {
+            resolve(this.note);
+            console.log(this.note);
+          } else {
+            reject("Note is not available.");
+          }
         });
       }
 };
