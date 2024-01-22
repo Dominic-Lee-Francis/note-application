@@ -82,58 +82,19 @@ class NoteServices {
     /*
     * CREATE FUNCTION
     */
-    create(user) {
-        // returns a new promise that resolves after pushing the new user to the database
-        return new Promise((resolve, reject) => {
-            // reads the existing data from the database json file
-            this.fs.readFile('./Database/db.json', 'utf8', (err, data) => {
-                if (err) {
-                    reject(err);
-                    console.log("error reading file");
-                }
-                // parses the existing data
-                const parsedData = JSON.parse(data);
-                console.log("parsedData in create", parsedData);
-                // pushes the new user to the parsed data
-                parsedData.push(user);
-                console.log("parsedData in create after push", parsedData);
-                // converts the updated data to a JSON string
-                const updatedData = JSON.stringify(parsedData);
-                console.log("updatedData in create", updatedData);
-                // writes the updated data to the database json file
-                this.fs.writeFile('./Database/db.json', updatedData, 'utf8', (err) => {
-                    if (err) {
-                        reject(err);
-                        console.log("error writing file");
-                    }
-                    // resolves the promise after successfully pushing the new user to the database
-                    resolve();
-                });
-            });
+    create(note) {
+        this.fs.writeFile(this.note, JSON.stringify(note), (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Note saved: ", JSON.stringify(note));
+            }
         });
     }
 
     /*
     * WRITE FUNCTION
     */
-    deleteDB() {
-        // creates and returns a new promise
-        return new Promise((resolve, reject) => {
-            // converts the note object to a JSON string
-            const jsonData = JSON.stringify(this.note);
-            console.log(jsonData);
-            // writes the JSON string to the database json file
-            this.fs.writeFile('./Database/db.json', jsonData, 'utf8', (err) => {
-                // if an error occurs, the promise is rejected and the error is returned
-                if (err) {
-                    reject(err);
-                    console.log("error writing file");
-                }
-                // if no error occurs, the promise is fulfilled
-                resolve();
-            });
-        });
-    }
 }
 
 module.exports = NoteServices;
