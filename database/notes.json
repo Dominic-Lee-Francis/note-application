@@ -1,1 +1,6 @@
-{"Dom Lee": ["My notes on family","my notes on farms"],"Alan Johnson": ["My notes on July","my notes on everything else"] }
+{
+    "Dom Lee": 
+        ["Dom Lee has written a note", "Dom Lee has written another note"],
+    "Alan Johnson": 
+        ["Alan Johnson has written a fantastic note","Alan Johnson will not write a another note"]
+}

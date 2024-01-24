@@ -1,16 +1,3 @@
-// const NoteServices = require('./server/NoteServices');
-// const noteServices = new NoteServices();
-
-// const NoteServices2 = require('./server/NoteServices');
-// const noteServices2 = new NoteServices2();
-
-// const fs = require('fs');
-// const path = require('path');
-
-// const NoteServer2 = require('./server/NoteServices2');
-
-// const note = new NoteServices2(__dirname + "./Database/db.json", fs);
-
 const express = require('express');
 const app = express();
 const { engine } = require('express-handlebars');
@@ -32,12 +19,35 @@ app.use(basicAuth({
     realm: 'Note App'
 }));
 
+app.use(express.static(__dirname + "/public"));
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
 const note = new NoteServer(__dirname + "/database/notes.json", fs);
+const router = new NoteRouter(note, express);
+
+
+// app.get("/", async (req, res) => {
+//     note.listNotes(req.auth.user).then((notes) => {
+//         console.log(notes);
+//         res.render("index", {
+//             user: req.auth.user,
+//             notes: notes
+//         });
+//     });
+// });
 
 app.get("/", function (req, res) {
-    res.render("home", {
+    note.listNotes(req.auth.user).then((notes) => {
+        console.log(notes);
+        res.render("home", {
+            user: req.auth.user,
+            notes: notes
+        });
     });
 });
+
+app.use("/notes", router.router());
 
 app.listen(port, () => {
         console.log(`Server started on port ${port}`);
